@@ -294,6 +294,12 @@ named!(proc_diskstats<Vec<BlockDeviceStats>>,
 
 pub struct PlatformImpl;
 
+impl PlatformImpl {
+    pub fn cpu_time(&self) -> io::Result<Vec<CpuTime>> {
+        return cpu_time()
+    }
+}
+
 /// An implementation of `Platform` for Linux.
 /// See `Platform` for documentation.
 impl Platform for PlatformImpl {
