@@ -521,12 +521,12 @@ impl Platform for PlatformImpl {
         let tx_errors: u64 = try!(value_from_file::<u64>(&stats_file("tx_errors")));
 
         Ok(NetworkStats {
-            ByteSize::b(rx_bytes),
-            ByteSize::b(tx_bytes),
-            rx_packets,
-            tx_packets,
-            rx_errors,
-            tx_errors,
+            rx_bytes: ByteSize::b(rx_bytes),
+            tx_bytes: ByteSize::b(tx_bytes),
+            rx_packets: rx_packets,
+            tx_packets: tx_packets,
+            rx_errors: rx_errors,
+            tx_errors: tx_errors,
         })
     }
 
