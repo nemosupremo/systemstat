@@ -69,7 +69,7 @@ mod tests {
     #[test]
     fn test_memory() {
         let mem = PlatformImpl::new().memory().unwrap();
-        assert!(mem.free.as_usize() > 1024 && mem.total.as_usize() > 1024);
+        assert!(mem.free.as_u64() > 1024 && mem.total.as_u64() > 1024);
     }
 
     #[test]
@@ -107,6 +107,7 @@ mod tests {
     #[test]
     fn test_cpu_measurement_is_send() {
         use crate::{DelayedMeasurement, CPULoad};
+        #[allow(dead_code)]
         fn take_delayed(dm: DelayedMeasurement<Vec<CPULoad>>) {
             use std::thread;
             thread::spawn(move || dm);

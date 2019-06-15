@@ -10,6 +10,11 @@ pub use chrono::{DateTime, Utc, NaiveDateTime, TimeZone};
 pub use bytesize::ByteSize;
 use std::ops::Sub;
 
+#[inline(always)]
+pub fn saturating_sub_bytes(l: ByteSize, r: ByteSize) -> ByteSize {
+    ByteSize::b(l.as_u64().saturating_sub(r.as_u64()))
+}
+
 /// A wrapper for a measurement that takes time.
 ///
 /// Time should pass between getting the object and calling .done() on it.
@@ -281,12 +286,12 @@ pub struct Network {
 
 #[derive(Debug, Clone)]
 pub struct NetworkStats {
-    pub rx_bytes: usize,
-    pub tx_bytes: usize,
-    pub rx_packets: usize,
-    pub tx_packets: usize,
-    pub rx_errors: usize,
-    pub tx_errors: usize,
+    pub rx_bytes: ByteSize,
+    pub tx_bytes: ByteSize,
+    pub rx_packets: u64,
+    pub tx_packets: u64,
+    pub rx_errors: u64,
+    pub tx_errors: u64,
 }
 
 #[derive(Debug, Clone)]
