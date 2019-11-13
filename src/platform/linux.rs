@@ -377,10 +377,13 @@ impl Platform for PlatformImpl {
                         ByteSize::b(
                             meminfo.get("SReclaimable").map(|x| x.clone()).unwrap_or(
                                 ByteSize::b(0),
-                            ).as_u64() -
-                            meminfo.get("Shmem").map(|x| x.clone()).unwrap_or(
-                                ByteSize::b(0),
-                            ).as_u64()
+                            )
+                            .as_u64()
+                            .saturating_sub(
+                                meminfo.get("Shmem").map(|x| x.clone()).unwrap_or(
+                                    ByteSize::b(0),
+                                ).as_u64()
+                            )
                         ),
                     platform_memory: PlatformMemory { meminfo: meminfo },
                 }
